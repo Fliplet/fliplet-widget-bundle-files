@@ -9,6 +9,9 @@ var filesString = data.files.map(function (file) {
 }).join('\r\n');
 
 $('textarea').val(filesString);
+$('textarea').change(function () {
+  $('.result').val('');
+})
 
 Fliplet().then(function () {
   $(window).on('resize', Fliplet.Widget.autosize);
@@ -28,9 +31,10 @@ Fliplet().then(function () {
       };
     });
 
+    $('.result').html('');
+
     Fliplet.Widget.save(data).then(function () {
-      Fliplet.Widget.complete();
-      alert('Done!');
+      $('.result').html('<div class="alert alert-success" role="alert">Done! Your app bundle has been updated.</div>');
     });
   });
 
