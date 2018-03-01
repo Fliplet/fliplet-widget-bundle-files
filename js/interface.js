@@ -64,7 +64,7 @@ Fliplet().then(function () {
       Fliplet.Widget.save({
         files: files
       }).then(function () {
-        $('.result').html('<div class="alert alert-success">Saved! The files are now available in your app.</div>');
+        $('.result').html('<div class="alert alert-success">Saved! The files entered are now available in your app.</div>');
         Fliplet.Widget.autosize();
       });
     }).catch(function (error) {
