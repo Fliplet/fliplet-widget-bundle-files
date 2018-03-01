@@ -22,6 +22,7 @@ Fliplet().then(function () {
     var txt = $('textarea').val();
 
     $('.result').html('<div class="alert alert-info" role="alert">Validating files...</div>');
+    Fliplet.Widget.autosize();
 
     Promise.all(_.compact(txt.split('\n')).map(function (url, idx) {
       url = url.trim();
@@ -62,9 +63,11 @@ Fliplet().then(function () {
         files: files
       }).then(function () {
         $('.result').html('<div class="alert alert-success" role="alert">Done! Your app bundle has been updated.</div>');
+        Fliplet.Widget.autosize();
       });
     }).catch(function (error) {
       $('.result').html('<div class="alert alert-danger" role="alert">' + error + '</div>');
+      Fliplet.Widget.autosize();
     });
   });
 
