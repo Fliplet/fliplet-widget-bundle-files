@@ -1,9 +1,10 @@
 {
-  "name": "Bundle Files",
+  "name": "CSS/JS resources",
   "package": "com.fliplet.bundle-files",
   "version": "1.0.0",
+  "description": "<p>Use this add-on to add external CSS/JS resources to your app.</p>",
   "icon": "img/icon.png",
-  "tags": ["type:appComponent"],
+  "tags": ["type:appComponent","beta:true"],
   "provider_only": false,
   "references": [],
   "html_tag": "template",
@@ -14,6 +15,7 @@
       "fliplet-studio-ui"
     ],
     "assets": [
+      "css/interface.css",
       "js/interface.js"
     ]
   },

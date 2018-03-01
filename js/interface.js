@@ -1,3 +1,4 @@
+/* eslint-disable */
 var data = Fliplet.Widget.getData() || {};
 
 if (!data.files) {
@@ -21,7 +22,7 @@ Fliplet().then(function () {
 
     var txt = $('textarea').val();
 
-    $('.result').html('<div class="alert alert-info" role="alert">Validating files...</div>');
+    $('.result').html('<div class="alert alert-info">Validating files...</div>');
 
     Promise.all(_.compact(txt.split('\n')).map(function (url, idx) {
       url = url.trim();
@@ -45,7 +46,7 @@ Fliplet().then(function () {
         } else if (contentType.indexOf('javascript') !== -1) {
           extension = 'js';
         } else {
-          return Promise.reject('The URL "' + url + '" does not include a valid content type: we got "' + contentType + '" but only javascript and css content types are accepted.');
+          return Promise.reject('<strong>Error</strong>: The content type for URL <strong>' + url + '</strong> is <code>' + contentType + '</code><br><br>Only CSS/JavaScript files are accepted.');
         }
 
         return {
@@ -55,16 +56,17 @@ Fliplet().then(function () {
           updatedAt: Math.round(Date.now()/1000)
         };
       }, function (err) {
-        return Promise.reject('There was en error fetching the URL "' + url + '". ' + err.responseJSON.message);
+        console.error(err);
+        return Promise.reject('<strong>Error</strong>: There was en error fetching the URL <strong>' + url + '</strong> <code>' + err.status + ' - ' + err.statusText + '</code><br><brSee console for more information.');
       });
     })).then(function (files) {
       Fliplet.Widget.save({
         files: files
       }).then(function () {
-        $('.result').html('<div class="alert alert-success" role="alert">Done! Your app bundle has been updated.</div>');
+        $('.result').html('<div class="alert alert-success">Saved! The files are now available in your app.</div>');
       });
     }).catch(function (error) {
-      $('.result').html('<div class="alert alert-danger" role="alert">' + error + '</div>');
+      $('.result').html('<div class="alert alert-danger">' + error + '</div>');
     });
   });
 

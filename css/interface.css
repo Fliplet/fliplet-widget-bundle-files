@@ -1,0 +1,7 @@
+.result {
+  margin-bottom: -5px;
+}
+
+.result:empty {
+  margin-bottom: 0;
+}
