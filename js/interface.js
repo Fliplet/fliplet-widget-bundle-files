@@ -32,6 +32,7 @@ Fliplet().then(function () {
 
       return Fliplet.API.request({
         url: 'v1/widgets/fetch-content-type',
+        method: 'POST',
         data: {
           url: url
         }
