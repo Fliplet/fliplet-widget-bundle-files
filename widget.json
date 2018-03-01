@@ -9,6 +9,7 @@
   "html_tag": "div",
   "interface": {
     "dependencies": [
+      "lodash",
       "fliplet-core",
       "fliplet-studio-ui"
     ],
@@ -17,7 +18,6 @@
     ]
   },
   "build": {
-    "dependencies": [
-    ]
+    "dependencies": []
   }
 }

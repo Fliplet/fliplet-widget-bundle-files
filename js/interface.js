@@ -23,29 +23,39 @@ Fliplet().then(function () {
 
     $('.result').html('<div class="alert alert-info" role="alert">Validating files...</div>');
 
-    Promise.all(txt.split('\n').map(function (url, idx) {
+    Promise.all(_.compact(txt.split('\n')).map(function (url, idx) {
       url = url.trim();
 
       if (!url.match(/^https?:\/\/.+/)) {
-        return Promise.reject('The URL "' + url + '" needs to start with http:// or https://.');
+        url = 'http://' + url;
       }
 
-      var parts = url.split('?');
-      url = parts[0];
-      var pieces = url.split('.');
-      var extension = (_.last(pieces) || '').toLowerCase();
+      return Fliplet.API.request({
+        url: 'v1/widgets/fetch-content-type',
+        data: {
+          url: url
+        }
+      }).then(function (response) {
+        var contentType = response.contentType;
+        var extension;
 
-      // TODO: Use API proxy to check whether links are valid and what's their content type
+        if (contentType.indexOf('css') !== -1) {
+          extension = 'css';
+        } else if (contentType.indexOf('javascript') !== -1) {
+          extension = 'js';
+        } else {
+          return Promise.reject('The URL "' + url + '" does not include a valid content type: we got "' + contentType + '" but only javascript and css content types are accepted.');
+        }
 
-      if (['css', 'js'].indexOf(extension) === -1) {
-        return Promise.reject('The URL "' + url + '" needs to reference a file ending with .css or .js extension.');
-      }
-
-      return {
-        url: url,
-        path: 'bundle/' + idx + '.' + extension,
-        updatedAt: Math.round(Date.now()/1000)
-      };
+        return {
+          url: url,
+          path: 'bundle/file-' + idx + '.' + extension,
+          context: 'page',
+          updatedAt: Math.round(Date.now()/1000)
+        };
+      }, function (err) {
+        return Promise.reject('There was en error fetching the URL "' + url + '". ' + err.responseJSON.message);
+      });
     })).then(function (files) {
       Fliplet.Widget.save({
         files: files
