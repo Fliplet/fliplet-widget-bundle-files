@@ -23,6 +23,7 @@ Fliplet().then(function () {
     var txt = $('textarea').val();
 
     $('.result').html('<div class="alert alert-info">Validating files...</div>');
+    Fliplet.Widget.autosize();
 
     Promise.all(_.compact(txt.split('\n')).map(function (url, idx) {
       url = url.trim();
@@ -64,9 +65,11 @@ Fliplet().then(function () {
         files: files
       }).then(function () {
         $('.result').html('<div class="alert alert-success">Saved! The files are now available in your app.</div>');
+        Fliplet.Widget.autosize();
       });
     }).catch(function (error) {
       $('.result').html('<div class="alert alert-danger">' + error + '</div>');
+      Fliplet.Widget.autosize();
     });
   });
 
