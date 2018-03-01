@@ -58,7 +58,7 @@ Fliplet().then(function () {
         };
       }, function (err) {
         console.error(err);
-        return Promise.reject('<strong>Error</strong>: There was en error fetching the URL <strong>' + url + '</strong> <code>' + err.status + ' - ' + err.statusText + '</code><br><brSee console for more information.');
+        return Promise.reject('<strong>Error</strong>: There was en error fetching the URL <strong>' + url + '</strong> <code>' + err.status + ' - ' + err.statusText + '</code><br><br>See console for more information.');
       });
     })).then(function (files) {
       Fliplet.Widget.save({
