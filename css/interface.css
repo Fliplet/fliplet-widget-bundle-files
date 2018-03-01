@@ -1,7 +1,9 @@
 .result {
-  margin-bottom: -5px;
+  margin-top: 20px;
 }
 
-.result:empty {
+.result:empty,
+.result .alert {
+  margin-top: 0;
   margin-bottom: 0;
 }
