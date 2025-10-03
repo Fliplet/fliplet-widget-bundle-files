@@ -25,7 +25,7 @@ Fliplet().then(function () {
     $('.result').html('<div class="alert alert-info">Validating files...</div>');
     Fliplet.Widget.autosize();
 
-    Promise.all(_.compact(txt.split('\n')).map(function (url, idx) {
+    Promise.all(Fliplet.Utils.compact(txt.split('\n')).map(function (url, idx) {
       url = url.trim();
 
       if (!url.match(/^https?:\/\/.+/)) {
